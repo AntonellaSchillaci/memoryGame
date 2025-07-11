@@ -1,44 +1,49 @@
+@use "sass:color";
+@use '../../styles/colors';
+
 .memory-game {
-    max-width: 500px;
-    margin: 2rem auto;
-    padding: 1rem;
-    background: #f0f8ff;
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    text-align: center;
-  
-    h1 {
-      color: #4a90e2;
-      margin-bottom: 1rem;
-      text-shadow: 1px 1px 3px rgba(74, 144, 226, 0.5);
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: colors.$background;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  border: 1px solid colors.$accent;
+
+  .title {
+    color: colors.$primary;
+    margin-bottom: 1rem;
+    text-shadow: 1px 1px 3px rgba(108, 92, 231, 0.3);
+  }
+
+  .btn-reset {
+    background: colors.$accent;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 0.5rem 1.5rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background: color.adjust(colors.$accent, $lightness: -15%);
+
     }
-  
-    button {
-      background: #4a90e2;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      padding: 0.5rem 1.5rem;
-      font-size: 1.1rem;
-      cursor: pointer;
-      margin-bottom: 1.5rem;
-      transition: background-color 0.3s ease;
-  
-      &:hover {
-        background: #357ABD;
-      }
-  
-      &:active {
-        background: #2a5d8f;
-      }
-    }
-  
-    .board {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
-      perspective: 1000px;
+
+    &:active {
+        background: color.adjust(colors.$accent, $lightness: -15%);
+
     }
   }
-  
+
+  .board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    perspective: 1000px;
+  }
+}

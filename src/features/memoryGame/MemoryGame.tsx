@@ -36,8 +36,8 @@ const MemoryGame: React.FC = () => {
 
   return (
     <div className="memory-game">
-      <h1>Gioco di Memoria</h1>
-      <button onClick={() => dispatch(resetGame())}>Reset</button>
+      <h1 className="title">Gioco di Memoria</h1>
+      <button className="btn-reset"onClick={() => dispatch(resetGame())}>Reset</button>
       <div className="board">
         {cards.map(card => (
           <Card
