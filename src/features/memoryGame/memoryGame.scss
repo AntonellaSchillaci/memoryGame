@@ -46,4 +46,19 @@
     gap: 15px;
     perspective: 1000px;
   }
+
+  .win-message {
+    font-size: 2rem;
+    color: colors.$success;
+    margin-top: 1.5rem;
+    font-weight: bold;
+    animation: pop 0.6s ease-out;
+  }
+  
+  @keyframes pop {
+    0%   { transform: scale(0); opacity: 0; }
+    60%  { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); }
+  }
+  
 }
