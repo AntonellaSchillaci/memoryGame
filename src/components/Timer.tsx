@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './timer.scss'; 
+import './Timer.scss'; 
 
 interface TimerProps {
   isActive: boolean;
