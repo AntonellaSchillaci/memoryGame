@@ -14,6 +14,9 @@ const MemoryGame: React.FC = () => {
   const [showConfetti, setShowConfetti] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [resetTrigger, setResetTrigger] = useState(0);
+  const [bestTime, setBestTime] = useState<number | null>(null);
+  const [timerSeconds, setTimerSeconds] = useState(0);
+
 
 
   useEffect(() => {
@@ -21,8 +24,9 @@ const MemoryGame: React.FC = () => {
     setShowConfetti(allMatched);
     if (allMatched) {
       setIsPaused(true); 
+      setBestTime(prev => (prev === null || timerSeconds < prev) ? timerSeconds : prev);
     }
-  }, [cards]);
+  }, [cards, timerSeconds]);
 
   useEffect(() => {
     if (flippedCards.length === 2) {
@@ -68,7 +72,16 @@ const MemoryGame: React.FC = () => {
         <button className="btn-pause" onClick={togglePause}>
           {isPaused ? '▶️' : '⏸️'}
         </button>
-        <Timer isActive={!isPaused} isPaused={isPaused} resetTrigger={resetTrigger} />
+        <Timer 
+        isActive={!isPaused} 
+        isPaused={isPaused} 
+        resetTrigger={resetTrigger} 
+        onTimeUpdate={setTimerSeconds}
+        />
+        <span className="best-time">
+          🏆 Miglior tempo: {bestTime !== null ? `${bestTime}s` : '—'}
+        </span>
+
       </div>
 
       <div className="board">
