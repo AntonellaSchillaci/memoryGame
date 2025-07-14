@@ -1,0 +1,43 @@
+@use '../styles/colors';
+@use "sass:color";
+
+.timer {
+  font-size: 1.25rem;
+  font-weight: 600;
+  background-color: colors.$card-bg;
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  display: inline-block;
+  box-shadow: 0 4px 8px rgba(colors.$secondary, 0.2);
+  transition: all 0.3s ease;
+  margin-right: 1rem;
+
+  &::before {
+    content: '⏱ ';
+    color: colors.$accent;
+    margin-right: 4px;
+  }
+
+  &.paused {
+    color: colors.$text-light;
+    background-color: colors.$card-bg;
+    box-shadow: none;
+  }
+
+  &.normal {
+    color: colors.$text;
+  }
+
+  &.warning {
+    color: colors.$warning;
+  }
+
+  &.critical {
+    color: colors.$error;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 1rem;
+    padding: 0.4rem 1rem;
+  }
+}
