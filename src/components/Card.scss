@@ -53,3 +53,28 @@
     filter: brightness(1.08);
   }
 }
+
+// dark mode overrides
+body.dark-mode {
+  .card {
+    .inner {
+      box-shadow: 0 6px 16px rgba(40, 10, 60, 0.7);
+    }
+
+    .front {
+      background: colors.$secondary-dark;
+      color: colors.$text-dark;
+      box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.1);
+    }
+
+    .back {
+      background: colors.$primary-dark;
+      color: colors.$card-bg-dark;
+      box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.15);
+    }
+
+    &:hover:not(.flipped) {
+      filter: brightness(1.15);
+    }
+  }
+}
