@@ -10,7 +10,7 @@ Un gioco di memoria sviluppato in **React + TypeScript**, con design accattivant
 - 🎯 Rileva automaticamente le coppie corrette
 - ⏱️ Timer e miglior tempo salvato
 - 🔄 Pulsante pausa/reset
-- 🌓 Supporto tema chiaro/scuro (toggle in alto a destra)
+- 🌓 Supporto tema chiaro/scuro
 - 🎉 Animazione di vittoria con Confetti!
 - 📱 Responsive e adattato anche a schermi piccoli
 
