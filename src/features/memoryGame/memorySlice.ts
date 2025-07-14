@@ -11,7 +11,8 @@ interface MemoryState {
   cards: Card[];
   flippedCards: number[];
   disabled: boolean;
-  gameWon: boolean; 
+  gameWon: boolean;
+  moves: number; 
 }
 
 const initialCards: Card[] = [
@@ -33,7 +34,8 @@ const initialState: MemoryState = {
   cards: shuffledCards,
   flippedCards: [],
   disabled: false,
-  gameWon: false, 
+  gameWon: false,
+  moves: 0, 
 };
 
 const memorySlice = createSlice({
@@ -45,9 +47,8 @@ const memorySlice = createSlice({
         return;
       }
 
-      const cardIndex = state.cards.findIndex(card => card.id === action.payload);
+      const cardIndex = state.cards.findIndex(c => c.id === action.payload);
       if (cardIndex === -1) return;
-
       if (state.cards[cardIndex].matched || state.cards[cardIndex].flipped) {
         return;
       }
@@ -56,10 +57,11 @@ const memorySlice = createSlice({
       state.flippedCards.push(action.payload);
 
       if (state.flippedCards.length === 2) {
-        const [firstId, secondId] = state.flippedCards;
-        const firstIndex = state.cards.findIndex(card => card.id === firstId);
-        const secondIndex = state.cards.findIndex(card => card.id === secondId);
+        state.moves += 1;
 
+        const [firstId, secondId] = state.flippedCards;
+        const firstIndex = state.cards.findIndex(c => c.id === firstId);
+        const secondIndex = state.cards.findIndex(c => c.id === secondId);
         if (firstIndex === -1 || secondIndex === -1) return;
 
         if (state.cards[firstIndex].content === state.cards[secondIndex].content) {
@@ -67,11 +69,9 @@ const memorySlice = createSlice({
           state.cards[secondIndex].matched = true;
           state.flippedCards = [];
 
-          const allMatched = state.cards.every(card => card.matched);
-          if (allMatched) {
+          if (state.cards.every(c => c.matched)) {
             state.gameWon = true;
           }
-
         } else {
           state.disabled = true;
         }
@@ -80,9 +80,9 @@ const memorySlice = createSlice({
 
     resetFlipped(state) {
       state.flippedCards.forEach(id => {
-        const cardIndex = state.cards.findIndex(card => card.id === id);
-        if (cardIndex !== -1 && !state.cards[cardIndex].matched) {
-          state.cards[cardIndex].flipped = false;
+        const idx = state.cards.findIndex(c => c.id === id);
+        if (idx !== -1 && !state.cards[idx].matched) {
+          state.cards[idx].flipped = false;
         }
       });
       state.flippedCards = [];
@@ -91,13 +91,14 @@ const memorySlice = createSlice({
 
     resetGame(state) {
       state.cards = initialCards
-        .map(card => ({ ...card, flipped: false, matched: false }))
+        .map(c => ({ ...c, flipped: false, matched: false }))
         .sort(() => Math.random() - 0.5);
       state.flippedCards = [];
       state.disabled = false;
       state.gameWon = false;
+      state.moves = 0; 
     },
-  }
+  },
 });
 
 export const { flipCard, resetFlipped, resetGame } = memorySlice.actions;

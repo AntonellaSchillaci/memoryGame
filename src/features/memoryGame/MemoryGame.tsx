@@ -4,12 +4,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import type { RootState, AppDispatch } from '../../app/store';
 import { flipCard, resetFlipped, resetGame } from './memorySlice';
 import Card from '../../components/Card';
+import DarkModeToggle from '../../components/DarkModeToggle';
 import Confetti from 'react-confetti';
 import './memoryGame.scss';
 
 const MemoryGame: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { cards, flippedCards, disabled } = useSelector((state: RootState) => state.memory);
+  const { cards, flippedCards, disabled, moves } = useSelector((state: RootState) => state.memory);
 
   const [showConfetti, setShowConfetti] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
@@ -63,25 +64,22 @@ const MemoryGame: React.FC = () => {
   const togglePause = () => setIsPaused(prev => !prev);
 
   return (
-    <div className="memory-game">
+    <><DarkModeToggle /><div className="memory-game">
       {showConfetti && <Confetti />}
       <h1 className="title">Gioco di Memoria</h1>
-      
       <div className="controls">
         <button className="btn-reset" onClick={handleReset}>Reset</button>
         <button className="btn-pause" onClick={togglePause}>
           {isPaused ? '▶️' : '⏸️'}
         </button>
-        <Timer 
-        isActive={!isPaused} 
-        isPaused={isPaused} 
-        resetTrigger={resetTrigger} 
-        onTimeUpdate={setTimerSeconds}
-        />
+        <Timer
+          isActive={!isPaused}
+          isPaused={isPaused}
+          resetTrigger={resetTrigger}
+          onTimeUpdate={setTimerSeconds} />
         <span className="best-time">
           🏆 Miglior tempo: {bestTime !== null ? `${bestTime}s` : '—'}
         </span>
-
       </div>
 
       <div className="board">
@@ -93,13 +91,16 @@ const MemoryGame: React.FC = () => {
             flipped={card.flipped}
             matched={card.matched}
             disabled={disabled || isPaused}
-            onClick={handleClick}
-          />
+            onClick={handleClick} />
         ))}
       </div>
+      <div className="move-counter">
+        Mosse effettuate: <strong>{moves}</strong>
+      </div>
+
 
       {showConfetti && <div className="win-message">🎉 You Win! 🎉</div>}
-    </div>
+    </div></>
   );
 };
 

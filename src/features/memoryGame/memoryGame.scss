@@ -81,13 +81,18 @@
 
   .btn-pause {
     font-size: 1.5rem;
-    color: white;
     padding: 0.5rem 1.2rem;
     border: none;
     cursor: pointer;
   }
-  
 
+  .move-counter {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    color: colors.$primary;
+  }
+  
   .board {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -109,4 +114,47 @@
     100% { transform: scale(1); }
   }
   
+}
+
+// Dark mode overrides
+.dark-mode {
+  .memory-game {
+    background: colors.$background-dark;
+    border: none;
+
+    .title {
+      color: colors.$primary-dark;
+      text-shadow: 1px 1px 3px rgba(155, 89, 182, 0.3);
+    }
+
+    .best-time {
+      color: colors.$winner-dark;
+      background-color: rgba(3, 218, 198, 0.1); 
+      border: 2px solid colors.$winner-dark;
+      box-shadow: 0 2px 6px rgba(3, 218, 198, 0.2);
+    }
+
+    .btn-reset {
+      background: colors.$accent-dark;
+      color: colors.$card-bg-dark;
+
+      &:hover,
+      &:active {
+        background: color.adjust(colors.$accent-dark, $lightness: -15%);
+      }
+    }
+
+    .btn-pause {
+      color: colors.$card-bg-dark;
+      background-color: colors.$background-dark;
+    }
+
+    .move-counter {
+      color: colors.$primary-dark;
+    }
+
+    .win-message {
+      color: colors.$success-dark;
+    }
+  }
 }
